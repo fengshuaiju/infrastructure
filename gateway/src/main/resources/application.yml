@@ -32,6 +32,10 @@ zuul:
       path: /api/accounts/**
       serviceId: account-service
       stripPrefix: false
+    ababy-server:
+      path: /api/baby/**
+      serviceId: baby-server
+      stripPrefix: false
 
 
 eureka:
