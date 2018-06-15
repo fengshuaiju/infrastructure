@@ -1,0 +1,72 @@
+info:
+  component: API Gateway
+
+server:
+  port: 8765
+  compression:
+    enabled: true
+
+management:
+  port: 8766
+  security.enabled: false
+
+spring:
+  devtools.livereload.enabled: false
+  jmx.default-domain: ${spring.application.name}
+  output.ansi.enabled: always
+
+zuul:
+
+  # By default, Zuul Proxy thinks of Cookie, Set-Cookie, and Authorization as sensitive headers, and won't forward them
+  # to downstream services. But here, we want to share spring session state between the zuul proxy and services, so
+  # remove Cookie header from the sensitive headers.
+  sensitiveHeaders:
+
+  ignoredServices: "*"
+  routes:
+    auth-service:
+      path: /api/auth/**
+      serviceId: auth-service
+      stripPrefix: false
+    account-service:
+      path: /api/accounts/**
+      serviceId: account-service
+      stripPrefix: false
+
+
+eureka:
+  instance:
+    metadataMap:
+      instanceId:
+        ${spring.application.name}:${spring.application.instance_id:${random.value}}
+  client:
+    fetchRegistry: true
+    healthcheck:
+      enabled: true
+
+hystrix.command.default.execution.isolation.thread.timeoutInMilliseconds: 60000
+ribbon:
+  ConnectTimeout: 3000
+  ReadTimeout: 60000
+
+
+logging.level:
+  com.jjcargo: DEBUG
+
+
+---
+
+spring.profiles: development
+
+
+---
+
+spring.profiles: staging
+
+
+---
+
+spring.profiles: production
+
+logging.level:
+  com.jjcargo: INFO

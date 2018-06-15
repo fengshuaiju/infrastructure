@@ -1,0 +1,26 @@
+server:
+  port: 8761
+
+info:
+  component: Service Registration and Discovery
+
+management:
+  port: 8762
+  security.enabled: false
+
+spring:
+  devtools.livereload.enabled: false
+  jmx.default-domain: ${spring.application.name}
+  output.ansi.enabled: always
+
+eureka:
+  instance:
+    hostname: localhost
+  client:
+    registerWithEureka: false
+    fetchRegistry: false
+    serviceUrl:
+      defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/
+  server:
+    waitTimeInMsWhenSyncEmpty: 0
+#    enableSelfPreservation: false
