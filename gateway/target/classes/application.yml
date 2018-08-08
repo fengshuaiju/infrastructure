@@ -24,13 +24,17 @@ zuul:
 
   ignoredServices: "*"
   routes:
-    auth-service:
-      path: /api/auth/**
-      serviceId: auth-service
-      stripPrefix: false
+#    auth-service:
+#      path: /api/auth/**
+#      serviceId: auth-service
+#      stripPrefix: false
     account-service:
       path: /api/accounts/**
       serviceId: account-service
+      stripPrefix: false
+    ababy-server:
+      path: /api/baby/**
+      serviceId: baby-server
       stripPrefix: false
 
 
