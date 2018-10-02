@@ -20,9 +20,12 @@ zuul:
   # By default, Zuul Proxy thinks of Cookie, Set-Cookie, and Authorization as sensitive headers, and won't forward them
   # to downstream services. But here, we want to share spring session state between the zuul proxy and services, so
   # remove Cookie header from the sensitive headers.
-  sensitiveHeaders:
+#  sensitiveHeaders:
+#  ignoredServices: "*"
 
-  ignoredServices: "*"
+  sensitiveHeaders: Set-Cookie,Access-Control-Allow-Origin
+  ignored-headers: Access-Control-Allow-Origin,H-APP-Id,Token,APPToken
+
   routes:
 #    auth-service:
 #      path: /api/auth/**
@@ -36,7 +39,6 @@ zuul:
       path: /api/baby/**
       serviceId: baby-server
       stripPrefix: false
-
 
 eureka:
   instance:
